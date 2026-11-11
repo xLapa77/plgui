@@ -134,7 +134,7 @@ public class ProfileScreen extends Screen {
     private void click(float pitch, float volume) {
         try {
             if (client != null) {
-                client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, pitch, volume));
+                client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK.value(), pitch, volume));
             }
         } catch (Exception ignored) {
         }
