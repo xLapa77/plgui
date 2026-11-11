@@ -7,7 +7,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: unzip -q profilegui-mod-src.zip
+      - name: Uloz pliki w foldery
+        run: |
+          mkdir -p src/main/java/pl/profilegui
+          mkdir -p src/main/resources/assets/profilegui/lang
+          mv ProfileGuiClient.java ProfileScreen.java src/main/java/pl/profilegui/
+          mv fabric.mod.json src/main/resources/
+          mv en_us.json pl_pl.json src/main/resources/assets/profilegui/lang/
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -15,8 +21,8 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 8.12
-      - run: cd profilegui && gradle build
+      - run: gradle build
       - uses: actions/upload-artifact@v4
         with:
           name: profilegui-jar
-          path: profilegui/build/libs/profilegui-1.0.0.jar
+          path: build/libs/profilegui-1.0.0.jar
