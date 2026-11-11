@@ -1,1 +1,22 @@
-
+name: Build mod
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: unzip -q profilegui-mod-src.zip
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.12
+      - run: cd profilegui && gradle build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: profilegui-jar
+          path: profilegui/build/libs/profilegui-1.0.0.jar
